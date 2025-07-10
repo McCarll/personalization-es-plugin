@@ -4,7 +4,7 @@ This project demonstrates an efficient solution to the subset sum problem, where
 
 ---
 
-## 🧠 Why This Approach is the Best
+## Why This Approach is the Best
 
 Dynamic programming (DP) is ideal for the subset sum problem because it guarantees the optimal subset in **polynomial time O(n × target)**. Greedy methods might skip better solutions, and brute-force is exponential. DP avoids redundant computations and ensures **mathematical certainty**, which is essential when precision impacts business KPIs directly.
 
