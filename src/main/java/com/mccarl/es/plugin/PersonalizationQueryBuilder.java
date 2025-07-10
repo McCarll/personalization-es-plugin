@@ -49,32 +49,6 @@ public class PersonalizationQueryBuilder extends AbstractQueryBuilder<Personaliz
         builder.endObject();
     }
 
-//    @Override
-//    protected Query doToQuery(SearchExecutionContext searchExecutionContext) throws IOException {
-//        logger.info("=== Converting to Lucene query - query: '{}', location: '{}' ===", queryText, location);
-//
-//        var bool = QueryBuilders.boolQuery()
-//                .must(QueryBuilders.matchQuery("name", queryText));
-//
-//        Map<String, Float> colorBoosts = switch (location) {
-//            case "BR" -> Map.of("red", 2.0f, "black", 1.5f);
-//            case "EU" -> Map.of("blue", 2.0f, "gray", 1.2f);
-//            case "US" -> Map.of("black", 2.0f, "brown", 1.4f);
-//            default -> Map.of();
-//        };
-//
-//        logger.info("Applying color boosts for location '{}': {}", location, colorBoosts);
-//
-//        for (var entry : colorBoosts.entrySet()) {
-//            bool.should(QueryBuilders.termQuery("color", entry.getKey()).boost(entry.getValue()));
-//        }
-//
-//        Query luceneQuery = bool.toQuery(searchExecutionContext);
-//        logger.info("Generated Lucene query: {}", luceneQuery);
-//
-//        return luceneQuery;
-//    }
-
     @Override
     protected Query doToQuery(SearchExecutionContext context) throws IOException {
         var bool = QueryBuilders.boolQuery()
