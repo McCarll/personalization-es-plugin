@@ -1,19 +1,60 @@
 # Personalization Plugin for Elasticsearch
 
-## Overview
 
-This Elasticsearch plugin introduces a custom query type `personalized_query` that dynamically personalizes product search results based on user signals such as purchases and search conversions. It uses location-based aggregated data from a dedicated `signals` index to apply query-time boosting (e.g., preferring red chairs for BR users).
+This Elasticsearch plugin introduces a custom query type `personalized_query` that dynamically personalizes product search results based on user signals such as past purchases and search conversions. It leverages location-based behavioral data from a dedicated `signals` index to apply query-time boosts (e.g., preferring red chairs for BR users or blue for EU).
+
+---
+
+## 🔍 How It Works
+
+- **Custom Query Type:**  
+  Adds a new query type called `personalized_query` that takes parameters like `query` (user input) and `location` (e.g., "US", "EU", "BR").
+
+- **Signal Boosting:**  
+  Each search execution consults an in-memory cache built from the `signals` index. Boost values are based on user interactions (e.g., purchases and conversions in the past 3 months), boosting fields like `color` or `brand`.
+
+- **Scheduled Signal Updates:**  
+  A background task runs periodically (via Elasticsearch’s thread pool) to fetch the latest signals using the scroll API. It filters only documents updated in the last 3 months and rebuilds the boost map for each location.
+
+- **Lucene Query Conversion:**  
+  The plugin translates signal data into boosted Lucene `bool` queries, combining the user's search text with weighted field clauses.
 
 ---
 
-## How It Works
+## Why This Approach is Best
 
-- **Custom Query Type:** Adds a new query type called `personalized_query` with parameters `query` and `location`.
-- **Signal Boosting:** At query execution, it boosts relevant fields (e.g., `color`) based on preferences derived from user activity, stored in a `signals` index.
-- **Scheduled Updates:** A background task pulls updated signal data using the Elasticsearch scroll API and caches it in memory.
-- **Lucene Query Conversion:** Signals are translated into boosted clauses inside a `bool` query using Lucene.
+This plugin-based solution integrates natively into Elasticsearch, ensuring minimal external dependencies and real-time scoring enhancements. It avoids fragile client-side personalization and centralizes logic for consistency and control. Boosts are applied dynamically at query time, allowing immediate response to changing behavior without index reprocessing.
 
 ---
+
+## Advantages
+
+- **Real-time Personalization:** Boosts reflect the latest user behavior using periodic cache updates.
+- **Seamless Integration:** Uses native Elasticsearch plugin APIs and works out-of-the-box with any query pipeline.
+- **Low Latency:** No joins or reindexing; uses in-memory lookup for boosting.
+- **Extensible Design:** Can easily be expanded to include other dimensions (e.g., brand, price sensitivity).
+
+---
+
+## Limitations
+
+- **Coarse Granularity:** Signals are currently aggregated at the location level, not per-user.
+- **Cold Start:** New locations without signals receive no boosts.
+- **Boost Logic is Static:** Signal weights are not automatically tuned (e.g., via ML).
+
+---
+
+## Next Steps
+
+- **Per-User Personalization:** Extend the plugin to consider per-user signals instead of only location-level aggregates.
+- **Time-Decay Weighting:** Add recency-based decay to signals (e.g., newer purchases have higher weight).
+- **Boost Tuning:** Use offline analysis or A/B testing to fine-tune boost multipliers.
+- **Support for Multi-Dimensional Boosts:** Extend logic to boost based on category, brand, price range, and user segment.
+
+---
+
+> This plugin provides a scalable and extensible foundation for real-time behavioral personalization in search, bridging the gap between static relevance and dynamic user preferences.
+
 
 ## Example Query
 ### possible locations: BR, EU, ES
