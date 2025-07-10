@@ -1,0 +1,54 @@
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+bin/
+out/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Elasticsearch
+elasticsearch-*/
+*.log
+data/elasticsearch/
+
+# Docker
+docker-compose.override.yml
+.env
+
+# Build artifacts
+*.zip
+*.tar.gz
+dist/
+
+# Test outputs
+test-results/
+test-output/
+*.hprof
+
+# Local configuration
+local.properties
+gradle.properties.local
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Plugin specific
+plugin-descriptor.properties.bak

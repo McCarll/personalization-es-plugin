@@ -1,0 +1,60 @@
+{"index": {"_id": "user_br_001"}}
+{"location": "BR", "color": "red", "boost": 1.34, "last_updated": "2025-05-16 00:21:08"}
+{"index": {"_id": "user_br_002"}}
+{"location": "BR", "color": "red", "boost": 1.39, "last_updated": "2025-05-23 12:39:40"}
+{"index": {"_id": "user_br_003"}}
+{"location": "BR", "color": "red", "boost": 1.32, "last_updated": "2025-05-31 18:42:41"}
+{"index": {"_id": "user_br_004"}}
+{"location": "BR", "color": "red", "boost": 1.36, "last_updated": "2025-05-27 10:17:57"}
+{"index": {"_id": "user_br_005"}}
+{"location": "BR", "color": "red", "boost": 1.46, "last_updated": "2025-05-18 10:03:59"}
+{"index": {"_id": "user_br_006"}}
+{"location": "BR", "color": "red", "boost": 1.2, "last_updated": "2025-07-06 18:16:06"}
+{"index": {"_id": "user_br_007"}}
+{"location": "BR", "color": "red", "boost": 1.17, "last_updated": "2025-05-30 17:11:54"}
+{"index": {"_id": "user_br_008"}}
+{"location": "BR", "color": "red", "boost": 1.44, "last_updated": "2025-06-24 22:36:05"}
+{"index": {"_id": "user_br_009"}}
+{"location": "BR", "color": "red", "boost": 1.11, "last_updated": "2025-05-20 17:24:26"}
+{"index": {"_id": "user_br_010"}}
+{"location": "BR", "color": "red", "boost": 1.14, "last_updated": "2025-05-19 22:00:40"}
+{"index": {"_id": "user_eu_001"}}
+{"location": "EU", "color": "blue", "boost": 1.34, "last_updated": "2025-07-03 19:34:58"}
+{"index": {"_id": "user_eu_002"}}
+{"location": "EU", "color": "blue", "boost": 1.23, "last_updated": "2025-06-12 09:20:57"}
+{"index": {"_id": "user_eu_003"}}
+{"location": "EU", "color": "blue", "boost": 1.11, "last_updated": "2025-06-09 20:38:28"}
+{"index": {"_id": "user_eu_004"}}
+{"location": "EU", "color": "blue", "boost": 1.31, "last_updated": "2025-06-29 14:23:43"}
+{"index": {"_id": "user_eu_005"}}
+{"location": "EU", "color": "blue", "boost": 1.17, "last_updated": "2025-05-13 13:35:29"}
+{"index": {"_id": "user_eu_006"}}
+{"location": "EU", "color": "blue", "boost": 1.42, "last_updated": "2025-06-29 14:09:51"}
+{"index": {"_id": "user_eu_007"}}
+{"location": "EU", "color": "blue", "boost": 1.06, "last_updated": "2025-06-24 23:49:16"}
+{"index": {"_id": "user_eu_008"}}
+{"location": "EU", "color": "blue", "boost": 1.35, "last_updated": "2025-06-01 02:44:28"}
+{"index": {"_id": "user_eu_009"}}
+{"location": "EU", "color": "blue", "boost": 1.3, "last_updated": "2025-06-28 13:44:44"}
+{"index": {"_id": "user_eu_010"}}
+{"location": "EU", "color": "blue", "boost": 1.05, "last_updated": "2025-06-02 21:26:37"}
+{"index": {"_id": "user_us_001"}}
+{"location": "US", "color": "brown", "boost": 1.02, "last_updated": "2025-06-05 14:20:34"}
+{"index": {"_id": "user_us_002"}}
+{"location": "US", "color": "black", "boost": 1.06, "last_updated": "2025-06-27 14:47:30"}
+{"index": {"_id": "user_us_003"}}
+{"location": "US", "color": "brown", "boost": 1.06, "last_updated": "2025-06-05 05:28:56"}
+{"index": {"_id": "user_us_004"}}
+{"location": "US", "color": "brown", "boost": 1.23, "last_updated": "2025-05-24 21:39:01"}
+{"index": {"_id": "user_us_005"}}
+{"location": "US", "color": "brown", "boost": 1.43, "last_updated": "2025-06-04 14:48:34"}
+{"index": {"_id": "user_us_006"}}
+{"location": "US", "color": "black", "boost": 1.37, "last_updated": "2025-05-22 18:31:48"}
+{"index": {"_id": "user_us_007"}}
+{"location": "US", "color": "black", "boost": 1.22, "last_updated": "2025-06-09 11:56:34"}
+{"index": {"_id": "user_us_008"}}
+{"location": "US", "color": "black", "boost": 1.02, "last_updated": "2025-06-27 05:20:40"}
+{"index": {"_id": "user_us_009"}}
+{"location": "US", "color": "brown", "boost": 1.37, "last_updated": "2025-05-15 01:17:56"}
+{"index": {"_id": "user_us_010"}}
+{"location": "US", "color": "brown", "boost": 1.47, "last_updated": "2025-06-20 12:33:28"}

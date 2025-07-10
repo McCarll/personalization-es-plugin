@@ -1,0 +1,119 @@
+{
+  "settings": {
+    "number_of_shards": 3,
+    "number_of_replicas": 1,
+    "analysis": {
+      "analyzer": {
+        "product_analyzer": {
+          "tokenizer": "standard",
+          "filter": ["lowercase", "stop", "synonym_filter"]
+        }
+      },
+      "filter": {
+        "synonym_filter": {
+          "type": "synonym",
+          "synonyms": [
+            "chair,seat,seating",
+            "desk,table,workstation",
+            "office,work,professional"
+          ]
+        }
+      }
+    }
+  },
+  "mappings": {
+    "properties": {
+      "product_id": {
+        "type": "keyword",
+        "doc_values": true
+      },
+      "name": {
+        "type": "text",
+        "analyzer": "product_analyzer",
+        "fields": {
+          "keyword": {
+            "type": "keyword",
+            "ignore_above": 256
+          }
+        }
+      },
+      "description": {
+        "type": "text",
+        "analyzer": "product_analyzer"
+      },
+      "category": {
+        "type": "keyword",
+        "doc_values": true
+      },
+      "subcategory": {
+        "type": "keyword",
+        "doc_values": true
+      },
+      "brand": {
+        "type": "keyword",
+        "doc_values": true
+      },
+      "color": {
+        "type": "keyword",
+        "doc_values": true
+      },
+      "material": {
+        "type": "keyword",
+        "doc_values": true
+      },
+      "price": {
+        "type": "float",
+        "doc_values": true
+      },
+      "original_price": {
+        "type": "float",
+        "doc_values": true
+      },
+      "discount_percentage": {
+        "type": "float",
+        "doc_values": true
+      },
+      "in_stock": {
+        "type": "boolean",
+        "doc_values": true
+      },
+      "stock_quantity": {
+        "type": "integer",
+        "doc_values": true
+      },
+      "attributes": {
+        "type": "object",
+        "properties": {
+          "weight": { "type": "float" },
+          "dimensions": { "type": "text" },
+          "assembly_required": { "type": "boolean" },
+          "warranty_years": { "type": "integer" }
+        }
+      },
+      "tags": {
+        "type": "keyword",
+        "doc_values": true
+      },
+      "rating": {
+        "type": "float",
+        "doc_values": true
+      },
+      "review_count": {
+        "type": "integer",
+        "doc_values": true
+      },
+      "created_date": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      },
+      "updated_date": {
+        "type": "date",
+        "format": "yyyy-MM-dd"
+      },
+      "popularity_score": {
+        "type": "float",
+        "doc_values": true
+      }
+    }
+  }
+}

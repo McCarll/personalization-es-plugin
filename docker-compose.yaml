@@ -1,0 +1,115 @@
+version: '3.8'
+
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.17.0
+    container_name: es-personalization
+    environment:
+      - node.name=es-personalization
+      - cluster.name=personalization-cluster
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+      # Disable security for local development
+      - xpack.security.enabled=false
+      - xpack.security.enrollment.enabled=false
+      - xpack.security.http.ssl.enabled=false
+      - xpack.security.transport.ssl.enabled=false
+      # Enable monitoring
+      - xpack.monitoring.collection.enabled=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+      - es-plugins:/usr/share/elasticsearch/plugins
+      - ./build/distributions:/usr/share/elasticsearch/plugins-to-install:ro
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - elastic
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9200/_cluster/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana:8.17.0
+    container_name: kb-personalization
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - xpack.security.enabled=false
+      - SERVER_NAME=kibana
+      - SERVER_HOST=0.0.0.0
+      - MONITORING_UI_CONTAINER_ELASTICSEARCH_ENABLED=true
+    ports:
+      - "5601:5601"
+    networks:
+      - elastic
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5601/api/status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # Optional: Elasticsearch setup container
+  setup:
+    image: curlimages/curl:latest
+    container_name: es-setup
+    volumes:
+      - ./src/main/resources:/data:ro
+      - ./scripts:/scripts:ro
+    command: >
+      sh -c "
+        echo 'Waiting for Elasticsearch to be ready...' &&
+        until curl -s http://elasticsearch:9200/_cluster/health | grep -q '\"status\":\"[green|yellow]\"'; do
+          echo 'Waiting for Elasticsearch cluster to be healthy...'
+          sleep 5
+        done &&
+        echo 'Elasticsearch is ready!' &&
+      
+        # Check if products index exists
+        if ! curl -f -s http://elasticsearch:9200/products > /dev/null 2>&1; then
+          echo 'Creating products index...' &&
+          curl -X PUT http://elasticsearch:9200/products \
+            -H 'Content-Type: application/json' \
+            -d @/data/product_schema.json &&
+          echo 'Products index created!'
+        else
+          echo 'Products index already exists.'
+        fi &&
+      
+        # Load sample data if provided
+        if [ -f /data/products.json ]; then
+          echo 'Loading sample product data...' &&
+          curl -X POST http://elasticsearch:9200/products/_bulk \
+            -H 'Content-Type: application/json' \
+            --data-binary @/data/products.json &&
+          echo 'Sample data loaded!'
+        fi &&
+      
+        echo 'Setup complete!'
+      "
+    networks:
+      - elastic
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+volumes:
+  es-data:
+    driver: local
+  es-plugins:
+    driver: local
+
+networks:
+  elastic:
+    driver: bridge

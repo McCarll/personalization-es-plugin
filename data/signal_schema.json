@@ -1,0 +1,148 @@
+{
+  "settings": {
+    "number_of_shards": 2,
+    "number_of_replicas": 1,
+    "index": {
+      "refresh_interval": "5s"
+    }
+  },
+  "mappings": {
+    "properties": {
+      "user_id": {
+        "type": "keyword",
+        "doc_values": true
+      },
+      "location": {
+        "type": "keyword",
+        "doc_values": true
+      },
+      "location_details": {
+        "properties": {
+          "country": { "type": "keyword" },
+          "region": { "type": "keyword" },
+          "city": { "type": "keyword" },
+          "timezone": { "type": "keyword" }
+        }
+      },
+      "purchase_history": {
+        "type": "nested",
+        "properties": {
+          "product_id": {
+            "type": "keyword",
+            "doc_values": true
+          },
+          "category": {
+            "type": "keyword",
+            "doc_values": true
+          },
+          "subcategory": {
+            "type": "keyword",
+            "doc_values": true
+          },
+          "brand": {
+            "type": "keyword",
+            "doc_values": true
+          },
+          "color": {
+            "type": "keyword",
+            "doc_values": true
+          },
+          "price": {
+            "type": "float",
+            "doc_values": true
+          },
+          "purchase_date": {
+            "type": "date",
+            "format": "yyyy-MM-dd HH:mm:ss||yyyy-MM-dd"
+          },
+          "quantity": {
+            "type": "integer",
+            "doc_values": true
+          },
+          "score": {
+            "type": "float",
+            "doc_values": true
+          }
+        }
+      },
+      "search_conversions": {
+        "type": "nested",
+        "properties": {
+          "query": {
+            "type": "text",
+            "fields": {
+              "keyword": {
+                "type": "keyword",
+                "ignore_above": 256
+              }
+            }
+          },
+          "search_timestamp": {
+            "type": "date",
+            "format": "yyyy-MM-dd HH:mm:ss"
+          },
+          "converted_products": {
+            "type": "keyword",
+            "doc_values": true
+          },
+          "conversion_date": {
+            "type": "date",
+            "format": "yyyy-MM-dd HH:mm:ss"
+          },
+          "conversion_type": {
+            "type": "keyword",
+            "doc_values": true
+          }
+        }
+      },
+      "location_preferences": {
+        "properties": {
+          "color_affinity": {
+            "type": "object",
+            "enabled": true
+          },
+          "category_affinity": {
+            "type": "object",
+            "enabled": true
+          },
+          "brand_affinity": {
+            "type": "object",
+            "enabled": true
+          },
+          "price_range": {
+            "properties": {
+              "min": { "type": "float" },
+              "max": { "type": "float" },
+              "average": { "type": "float" }
+            }
+          }
+        }
+      },
+      "browsing_behavior": {
+        "properties": {
+          "avg_session_duration": { "type": "float" },
+          "total_searches": { "type": "integer" },
+          "total_page_views": { "type": "integer" },
+          "device_preferences": {
+            "properties": {
+              "mobile": { "type": "float" },
+              "desktop": { "type": "float" },
+              "tablet": { "type": "float" }
+            }
+          }
+        }
+      },
+      "computed_scores": {
+        "properties": {
+          "lifetime_value": { "type": "float" },
+          "engagement_score": { "type": "float" },
+          "churn_risk": { "type": "float" }
+        }
+      },
+      "last_updated": {
+        "type": "date",
+        "format": "yyyy-MM-dd HH:mm:ss"
+      }
+    }
+  }
+}
