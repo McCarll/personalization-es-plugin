@@ -45,11 +45,12 @@ This plugin-based solution integrates natively into Elasticsearch, ensuring mini
 ---
 
 ## Next Steps
-
+- **Remove boost calculation from plugin and move it to a separate service/cache**: This allows for more complex logic and easier updates without needing to redeploy the plugin.
 - **Per-User Personalization:** Extend the plugin to consider per-user signals instead of only location-level aggregates.
 - **Time-Decay Weighting:** Add recency-based decay to signals (e.g., newer purchases have higher weight).
 - **Boost Tuning:** Use offline analysis or A/B testing to fine-tune boost multipliers.
 - **Support for Multi-Dimensional Boosts:** Extend logic to boost based on category, brand, price range, and user segment.
+- **Personalization it's a good step to recommendation systems**: This plugin can be a foundational component for building more complex recommendation systems that consider user preferences and behaviors.
 
 ---
 
